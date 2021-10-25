@@ -1,8 +1,10 @@
 {
   "expo": {
     "name": "weather-tracking-app",
+    "description": "track the weather forecast of your favorite cities",
     "slug": "weather-tracking-app",
     "version": "1.0.0",
+    "sdkVersion": "43.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
