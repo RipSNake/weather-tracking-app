@@ -1,5 +1,5 @@
 import React, { ReactComponentElement, useEffect, useState } from 'react'
-import { Button, Text, TextInput, View, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
+import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
 import mockedCities from '../mockUps/favouriteCities';
 import CustomModal from './CustomModal';
 
@@ -50,7 +50,7 @@ export default function FavoriteCities(props: Props) {
   }, [cities, nameFilter])
 
 	return (
-			<View>
+			<ScrollView>
 					<Text style={styles.headerTitle}> Favourite Cities </Text>
 
           <TouchableOpacity 
@@ -61,7 +61,9 @@ export default function FavoriteCities(props: Props) {
           </TouchableOpacity>
           
           <Text>FlatList</Text>
-          <FlatList  
+          <FlatList
+            horizontal={true}
+            keyExtractor={(item, index) => (index.toString())}
             data={filtered}
             renderItem={({item}):JSX.Element => {return(
               <View key={item.name} style={styles.cityRow}>
@@ -76,7 +78,7 @@ export default function FavoriteCities(props: Props) {
 							</View>)}}
           />
           {modal}
-			</View>
+			</ScrollView>
 	)
 }
 
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     padding: 20
   },
   filter: {
-    backgroundColor: "565656",
+    backgroundColor: "#565656",
     paddingHorizontal: 5,
   },
   cityRow: {

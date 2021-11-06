@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
     },
     searchInput: {
-        backgroundColor: "565656",
+        backgroundColor: "#565656",
         paddingHorizontal: 5,
     }
 });
