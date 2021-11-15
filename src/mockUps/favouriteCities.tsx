@@ -3,7 +3,7 @@ interface City {
 	temperature: number,
 }
 
-export const favCities:City[] = [
+export const favouriteCities:City[] = [
   {
     name: 'Outrageous City',
     temperature: 32
@@ -26,4 +26,4 @@ export const favCities:City[] = [
   },
 ]
 
-export default favCities;
+export default favouriteCities;

@@ -1,12 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native';
-import AboutUs from './src/components/AboutUs';
-import FavoriteCities from './src/components/FavoriteCities';
-import Home from './src/components/Home';
-import Loader from './src/components/Loader';
-import SearchView from './src/components/SearchView';
-import mockedCities from './src/mockUps/favouriteCities';
+import Navigation from './src/navigations/Navigations';
 
 export default function App() {
   // go back functionality to exit app if on Main Screen
@@ -32,15 +27,12 @@ export default function App() {
   }, []);
   
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <Home/>
-        <AboutUs/>
-        <SearchView/>
-        <FavoriteCities cities={mockedCities}/>
-      </View>
-    </ScrollView>
+    
+      
+ 
+        <Navigation/>
+      
+    
   );
 }
 
@@ -49,6 +41,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
 });

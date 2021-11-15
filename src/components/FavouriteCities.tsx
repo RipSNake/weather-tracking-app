@@ -1,5 +1,6 @@
 import React, { ReactComponentElement, useEffect, useState } from 'react'
 import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
+import { Icon } from 'react-native-elements';
 import mockedCities from '../mockUps/favouriteCities';
 import CustomModal from './CustomModal';
 
@@ -9,10 +10,11 @@ interface City {
 }
 
 interface Props {
+  navigation: any;
   cities: City[],
 }
 
-export default function FavoriteCities(props: Props) {
+export default function FavouriteCities(props: Props) {
 	const [cities, setCities] = useState(props.cities);
   const [nameFilter, setNameFilter] = useState('');
   const [modal, setModal]:any = useState(null);
@@ -25,7 +27,7 @@ export default function FavoriteCities(props: Props) {
         isVisible={true}
         acceptText={'Delete'}
         cancelText={'Cancel'}
-        acceptFn={() => setCities(cities.filter((city:City) => city.name.substring(0,text.length) != text))}
+        acceptFn={() => {setCities(cities.filter((city:City) => city.name.substring(0,text.length) != text)); setModal(null)}}
         cancelFn={() => setModal(null)}
       />)
     return modal;
@@ -43,42 +45,49 @@ export default function FavoriteCities(props: Props) {
   useEffect(() => {
     console.log('First render');
     setCities(mockedCities);
-  }, [cities]);
+  }, []);
 
   useEffect(() => {
     filterList();
   }, [cities, nameFilter])
 
 	return (
-			<ScrollView>
-					<Text style={styles.headerTitle}> Favourite Cities </Text>
-
-          <TouchableOpacity 
-            style={styles.addBtn}
-            onPress={() => alert('Add City functionality comming soon...')}
-          >
-            <Text>ADD CITY</Text>
-          </TouchableOpacity>
+			<>
+      <ScrollView
+        style={{paddingHorizontal: 15, paddingVertical: 5}}
+      >
+        <TextInput
           
-          <Text>FlatList</Text>
-          <FlatList
-            horizontal={true}
-            keyExtractor={(item, index) => (index.toString())}
-            data={filtered}
-            renderItem={({item}):JSX.Element => {return(
-              <View key={item.name} style={styles.cityRow}>
-                <Text>{item.name}</Text>
-                <Text>{item.temperature}</Text>
-                <Button 
-                  onPress={() => {
-                    removeCity(item.name)
-                  }}
-                  title={"Forget"}
-                />
-							</View>)}}
-          />
-          {modal}
+        />
+        <FlatList
+          //horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => (index.toString())}
+          data={filtered}
+          renderItem={({item}):JSX.Element => {return(
+            <View key={item.name} style={styles.cityRow}>
+              <Text
+                onPress={() => props.navigation.navigate("cityDetail")}
+              >{item.name}</Text>
+              <Text>{item.temperature}</Text>
+              <Button 
+                onPress={() => {
+                  removeCity(item.name)
+                }}
+                title={"Forget"}
+              />
+            </View>)}}
+        />
+        {modal}
 			</ScrollView>
+      <TouchableOpacity 
+      style={styles.addBtn}
+      onPress={() => props.navigation.navigate('addCity')}
+    >
+      <Icon type="material-community" name="plus-circle-outline" color="" />
+    </TouchableOpacity>
+    </>
 	)
 }
 
@@ -89,9 +98,13 @@ const styles = StyleSheet.create({
   },
   addBtn: {
     backgroundColor: 'gold',
-    borderRadius: 10,
-    marginVertical: 10,
-    padding: 20
+    borderRadius: 50,
+    margin: 10,
+    padding: 15,
+    position: "absolute",
+    bottom: 0, 
+    right: 10,
+    zIndex: 10000
   },
   filter: {
     backgroundColor: "#565656",
@@ -100,6 +113,7 @@ const styles = StyleSheet.create({
   cityRow: {
     borderColor: 'blue',
     borderWidth: 2,
-    marginVertical: 5
+    marginVertical: 5,
+    padding: 10
   }
 })

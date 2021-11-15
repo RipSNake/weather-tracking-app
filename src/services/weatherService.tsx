@@ -1,0 +1,140 @@
+import axios from 'axios';
+import { 
+  OPEN_WEATHER_URL,
+  OPEN_WEATHER_HOST,
+  OPEN_WEATHER_KEY } from './weatherServiceUtils';
+
+const baseURL = OPEN_WEATHER_URL;
+
+const API_REQ = {
+  WEATHER: 'weather',
+  SEARCH: 'find',
+  FORECAST: 'climate/month',
+}
+
+const headers = {
+  'x-rapidapi-host': OPEN_WEATHER_HOST,
+  'x-rapidapi-key': OPEN_WEATHER_KEY
+};
+
+export const currentWeather = (city: string, country: string) => {
+  var options = {
+    method: 'GET',
+    url: baseURL+'/'+API_REQ.WEATHER,
+    params: {
+      q: `${city},${country}`, //city
+      // lat: '0',
+      // lon: '0',
+      //callback: 'test', --> to use with the response body
+      //id: '2172797', --> if the city id is known
+      lang: 'null', // --> looking for a traduction ?
+      units: 'imperial', // unit to show temp and data
+      //mode: 'xml'
+    },
+    headers 
+  };
+  
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+};
+
+
+/*
+Current Weather Response Example
+test({
+  "coord":{
+    "slon":-0.1257,
+    "lat":51.5085
+  },"weather":[{
+      "id":804,
+      "main":"Clouds",
+      "description":"overcast clouds",
+      "icon":"04n"
+    }],
+    "base":"stations",
+    "main":{
+      "temp":50.88,
+      "feelslike":49.89,
+      "tempmin":48.36,
+      "temp_max":52.56,
+      "pressure":1027,
+      "humidity":90
+    },
+    "visibility":10000,
+    "wind":{
+      "speed":2.3,
+      "deg":0
+    },
+    "clouds":{
+      "all":90
+    },
+    "dt":1636933717,
+    "sys":{
+      "type":2,
+      "id":2019646,
+      "country":"GB",
+      "sunrise":1636874224,
+      "sunset":1636906382
+    },
+    "timezone":0,
+    "id":2643743,
+    "name":"London",
+    "cod":200
+  }
+)
+
+
+Search Weather :
+  By city name. Input the city name or its part and get the list of the most proper cities in the world. 
+  Example - Lon or Lond or London. The more precise city name you put the more precise list you will get. 
+  To make it more precise put the city's name or its part, comma, the name of the county or 2-letter 
+  country code. You will get all proper cities in chosen county. The order is important - the first is 
+  city name than comma than county. Example - Lon, UK or Lon, GB or London, GB or Lon, England. 
+  By geographic coordinates.
+
+
+
+
+
+  FORECAST:
+  Response.body:
+  {
+    "cod":"200"
+    "city":{
+      "id":2451778
+      "name":"San"
+      "coord":{
+        "lon":-4.8956
+        "lat":13.3034
+        }
+      "country":"ML"
+    }
+    "message":0.464821192
+    "list":[
+      0:{
+        "dt":1636934400 // date time
+        "humidity":37.87
+        "pressure":997.21
+        "temp":{
+          "average":300.26
+          "average_max":306.66
+          "average_min":294.26
+          "record_max":311.15
+          "record_min":289.15
+        }
+        "wind_speed":3.39
+      }
+      1:{...
+      }
+      2:{...
+      }
+      ...
+      29:{...
+      }
+    ]
+  }
+
+*/

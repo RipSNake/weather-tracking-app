@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 
-export default function SearchView() {
+export default function Search() {
   const [searchList, setSearchList] = useState();
 
   useEffect(() => {
@@ -13,13 +13,13 @@ export default function SearchView() {
 
   
   return (
-      <View>
+      <View style={{paddingHorizontal: 15, paddingVertical: 5}}>
           <Text style={styles.searchLabel}>Write the city's name</Text>
           <TextInput
               style={styles.searchInput}
           />
           <ScrollView>
-            <Text></Text>
+            <Text>Search Screen !</Text>
           </ScrollView>
       </View>
   )

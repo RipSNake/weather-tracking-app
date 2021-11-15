@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 2,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -74,15 +74,19 @@ const styles = StyleSheet.create({
   },
   acceptBtn: {
     backgroundColor: 'orange',
-    borderRadius: 20,
+    borderRadius: 2,
     padding: 10,
-    elevation: 2
+    elevation: 2,
+    flex: 1,
+    flexWrap: 'wrap'
   },
   cancelBtn: {
     backgroundColor: 'darkgrey',
-    borderRadius: 20,
+    borderRadius: 2,
     padding: 10,
-    elevation: 2
+    elevation: 2,
+    flex: 1,
+    
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
