@@ -3,16 +3,12 @@ import {
   OPEN_WEATHER_URL,
   OPEN_WEATHER_HOST,
   OPEN_WEATHER_KEY, 
-  REQ_TYPE,
+  API_REQ_TYPE,
   ENDPOINTS} from './weatherServiceUtils';
 
 const baseURL = OPEN_WEATHER_URL;
 
-const API_REQ_TYPE = {
-  WEATHER: 'Current Weather',
-  SEARCH: 'Search City',
-  FORECAST: 'Month Forecast',
-}
+
 
 const headers = {
   'x-rapidapi-host': OPEN_WEATHER_HOST,
@@ -46,13 +42,13 @@ export const getWeather: any(reqType: any, city: { name: any; country: any; }) {
   };
 
   switch(reqType) {
-    case REQ_TYPE.FIND:
+    case API_REQ_TYPE.SEARCH:
       options.url = ENDPOINTS.FIND;
     break;
-    case REQ_TYPE.FORECAST:
+    case API_REQ_TYPE.FORECAST:
       options.url = ENDPOINTS.FORECAST;
     break;
-    case REQ_TYPE.WEATHER:
+    case API_REQ_TYPE.WEATHER:
       options.url = ENDPOINTS.WEATHER;
     break;
     default:

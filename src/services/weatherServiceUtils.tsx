@@ -12,3 +12,13 @@ export const ENDPOINTS = {
   WEATHER: '/weather',
   FORECAST: '/climate/month',
 };
+
+export const API_REQ_TYPE = {
+  WEATHER: 'Current Weather',
+  SEARCH: 'Search City',
+  FORECAST: 'Month Forecast',
+}
+
+export const CITIES = {
+  
+}
