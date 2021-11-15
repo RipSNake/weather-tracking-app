@@ -68,6 +68,13 @@ export default function FavouriteCities(props: Props) {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => (index.toString())}
           data={filtered}
+          {/* Add verification if city is already a favourite or not.
+              If not shows add button
+              Else STAR ICON and shadowed info indicating already saved
+
+              On either way, if pressed it redirects to the single
+              city information display screen.
+          */}
           renderItem={({item}):JSX.Element => {return(
             <View key={item.name} style={styles.cityRow}>
               <Text

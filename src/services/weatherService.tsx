@@ -159,4 +159,9 @@ Search Weather :
     ]
   }
 
+  ICONS UTILS:
+  How to get icon URL
+
+  For code 500 - light rain icon = "10d". See below a full list of codes
+  URL is http://openweathermap.org/img/wn/10d@2x.png
 */
