@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Alert, BackHandler, ScrollView, Text, View, SafeAreaView, Keyboard, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from 'react-native';
 import AboutUs from './src/components/AboutUs';
 import FavoriteCities from './src/components/FavoriteCities';
 import Home from './src/components/Home';
@@ -30,17 +30,22 @@ export default function App() {
 
     return () => backHandler.remove();
   }, []);
-  
+  const ocultarTeclado=()=>{
+    Keyboard.dismiss();
+  };
   return (
-    <ScrollView>
+    <>
+    <TouchableWithoutFeedback onPress={()=>ocultarTeclado()}> 
       <View style={styles.container}>
+        
+        <SearchView/>
+        {/* 
         <StatusBar style="auto" />
         <Home/>
-        <AboutUs/>
-        <SearchView/>
-        <FavoriteCities cities={mockedCities}/>
+        <AboutUs/><FavoriteCities cities={mockedCities}/> */}
       </View>
-    </ScrollView>
+    </TouchableWithoutFeedback>
+    </>
   );
 }
 
