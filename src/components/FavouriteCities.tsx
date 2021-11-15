@@ -57,7 +57,10 @@ export default function FavouriteCities(props: Props) {
         style={{paddingHorizontal: 15, paddingVertical: 5}}
       >
         <TextInput
-          
+          autoCompleteType={'name'}
+          style={{}}
+          onChangeText={(text) => console.log('changed input value' + text)}
+
         />
         <FlatList
           //horizontal={true}

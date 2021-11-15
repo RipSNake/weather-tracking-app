@@ -2,14 +2,16 @@ import axios from 'axios';
 import { 
   OPEN_WEATHER_URL,
   OPEN_WEATHER_HOST,
-  OPEN_WEATHER_KEY } from './weatherServiceUtils';
+  OPEN_WEATHER_KEY, 
+  REQ_TYPE,
+  ENDPOINTS} from './weatherServiceUtils';
 
 const baseURL = OPEN_WEATHER_URL;
 
-const API_REQ = {
-  WEATHER: 'weather',
-  SEARCH: 'find',
-  FORECAST: 'climate/month',
+const API_REQ_TYPE = {
+  WEATHER: 'Current Weather',
+  SEARCH: 'Search City',
+  FORECAST: 'Month Forecast',
 }
 
 const headers = {
@@ -17,12 +19,21 @@ const headers = {
   'x-rapidapi-key': OPEN_WEATHER_KEY
 };
 
-export const currentWeather = (city: string, country: string) => {
-  var options = {
+
+/**
+ * Gets the information from the reqType corresponding endpoint
+ * 
+ * Accepted values are: 'find', 'weather', 'climate/month',
+ * 
+ * @param reqType FIND, WEATHER, CLIMATE
+ * @param city Object with city information { name, country, lat, lon}
+ */
+export const getWeather: any(reqType: any, city: { name: any; country: any; }) {
+  let options = {
     method: 'GET',
-    url: baseURL+'/'+API_REQ.WEATHER,
+    baseURL,
     params: {
-      q: `${city},${country}`, //city
+      q: `${city.name},${city.country}`, //city
       // lat: '0',
       // lon: '0',
       //callback: 'test', --> to use with the response body
@@ -33,14 +44,29 @@ export const currentWeather = (city: string, country: string) => {
     },
     headers 
   };
+
+  switch(reqType) {
+    case REQ_TYPE.FIND:
+      options.url = ENDPOINTS.FIND;
+    break;
+    case REQ_TYPE.FORECAST:
+      options.url = ENDPOINTS.FORECAST;
+    break;
+    case REQ_TYPE.WEATHER:
+      options.url = ENDPOINTS.WEATHER;
+    break;
+    default:
+      options.url = ENDPOINTS.WEATHER;
+    break;
+  }
   
   axios.request(options).then(function (response) {
-    console.log(response.data);
+    return response.data;
+    //console.log(response.data);
   }).catch(function (error) {
     console.error(error);
   });
-};
-
+}
 
 /*
 Current Weather Response Example
