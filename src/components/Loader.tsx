@@ -11,6 +11,6 @@ export default function Loader() {
 
 const styles = StyleSheet.create({
   spinner: {
-    rotation: 40
+    //rotation: 40
   }
 })
