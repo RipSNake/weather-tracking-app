@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
     },
     searchInput: {
+
         backgroundColor: "#888888",
         maxHeight:70,
         paddingHorizontal: 5,
