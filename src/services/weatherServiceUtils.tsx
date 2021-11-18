@@ -18,5 +18,7 @@ export const API_REQ_TYPE = {
   SEARCH: 'Search City',
   FORECAST: 'Month Forecast',
 }
-
+// Full List of API supported Cities
 export const CITIES = cities;
+// Maps endpoint:: https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={API key}
+export const mapBaseURL = 'https://tile.openweathermap.org/map/';

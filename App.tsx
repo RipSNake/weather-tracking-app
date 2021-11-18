@@ -1,13 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
 import Navigation from './src/navigations/Navigations';
+import storage from './src/storage/storage';
+import { store } from './store/store';
 
 export default function App() {
+  const [localStorage, setLocalStorage] = useState(storage)
+  console.log("new Rendere")
   // go back functionality to exit app if on Main Screen
   useEffect(() => {
     const backAction = () => {
-      Alert.alert("Hold on!", "Are you sure you want to go back?", [
+      Alert.alert("Hold on!", "Are you sure you want to exit?", [
         {
           text: "Cancel",
           onPress: () => null,
@@ -27,12 +32,9 @@ export default function App() {
   }, []);
   
   return (
-    
-      
- 
-        <Navigation/>
-      
-    
+      <Provider store={store}>
+        <Navigation storage={localStorage}/>
+      </Provider>
   );
 }
 

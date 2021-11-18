@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     flex: 1,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginVertical: 10
   },
   cancelBtn: {
     backgroundColor: 'darkgrey',

@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { OPEN_WEATHER_MAP_ORG_KEY } from '../../env';
 import { 
   OPEN_WEATHER_URL,
   OPEN_WEATHER_HOST,
   OPEN_WEATHER_KEY, 
   API_REQ_TYPE,
-  ENDPOINTS} from './weatherServiceUtils';
+  ENDPOINTS,
+  mapBaseURL} from './weatherServiceUtils';
 
 const baseURL = OPEN_WEATHER_URL;
 
@@ -63,6 +65,14 @@ export const getWeather: any(reqType: any, city: { name: any; country: any; }) {
     console.error(error);
   });
 }
+
+export const getMap = (layer='TA2', zoom='', xCoordinate, yCoordinate) => {
+  // 2 meter weather layer: TA2
+  const url = `mapBaseURL${layer}/${zoom}/${xCoordinate}/${yCoordinate}.png?appid=${OPEN_WEATHER_MAP_ORG_KEY}`;
+
+  axios.get(url).then(res => console.log('MAP RESPONSE', res)).catch(e => console.log('ERROR HAPPENED ', e));
+  
+};
 
 /*
 Current Weather Response Example

@@ -1,6 +1,7 @@
 import React, { ReactComponentElement, useEffect, useState } from 'react'
 import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements';
+import { useSelector } from 'react-redux';
 import mockedCities from '../mockUps/favouriteCities';
 import CustomModal from './CustomModal';
 
@@ -12,12 +13,15 @@ interface City {
 interface Props {
   navigation: any;
   cities: City[],
+  storage: any
 }
 
 export default function FavouriteCities(props: Props) {
-	const [cities, setCities] = useState(props.cities);
+	const [cities, setCities] = useState();
   const [nameFilter, setNameFilter] = useState('');
   const [modal, setModal]:any = useState(null);
+
+  const favCities = useSelector(state => state.cities.data)
 
   const removeCity = (text: string) => {
     setModal(
@@ -44,7 +48,7 @@ export default function FavouriteCities(props: Props) {
   // first render
   useEffect(() => {
     console.log('First render');
-    setCities(mockedCities);
+    setCities(favCities);
   }, []);
 
   useEffect(() => {
@@ -53,28 +57,25 @@ export default function FavouriteCities(props: Props) {
 
 	return (
 			<>
+      <View style={{paddingHorizontal: 15, paddingVertical: 5}}>
+        <TextInput
+            autoCompleteType={'name'}
+            style={styles.filter}
+            onChangeText={(text) => console.log('changed input value' + text)}
+            placeholder="City name"
+          />
+      </View>
       <ScrollView
         style={{paddingHorizontal: 15, paddingVertical: 5}}
       >
-        <TextInput
-          autoCompleteType={'name'}
-          style={{}}
-          onChangeText={(text) => console.log('changed input value' + text)}
-
-        />
+        
         <FlatList
           //horizontal={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => (index.toString())}
           data={filtered}
-          {/* Add verification if city is already a favourite or not.
-              If not shows add button
-              Else STAR ICON and shadowed info indicating already saved
-
-              On either way, if pressed it redirects to the single
-              city information display screen.
-          */}
+         
           renderItem={({item}):JSX.Element => {return(
             <View key={item.name} style={styles.cityRow}>
               <Text
@@ -117,8 +118,10 @@ const styles = StyleSheet.create({
     zIndex: 10000
   },
   filter: {
-    backgroundColor: "#565656",
-    paddingHorizontal: 5,
+    backgroundColor: "#d6d6d6",
+    marginVertical: 5,
+    paddingHorizontal: 3,
+    paddingVertical: 10,
   },
   cityRow: {
     borderColor: 'blue',

@@ -13,11 +13,12 @@ import { ColorValue, StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function Navigation({storage}) {
+  console.log("Navigation Storage ", storage);
   return(
     <NavigationContainer>
       <Tab.Navigator 
-        
+        storage={storage}
         initialRouteName={"homeStack"}
         screenOptions={({route}) => ({
           tabBarStyle: {marginBottom: 10},
@@ -28,10 +29,10 @@ export default function Navigation() {
           header:() => (null)
         })}
       >
-        <Tab.Screen name="homeStack" component={HomeStack} options={{title: "Home"}}/>
-        <Tab.Screen name="searchStack" component={SearchCityStack} options={{title: "Search City"}}/>
-        <Tab.Screen name="top-citiesStack" component={FavouriteCitiesStack} options={{title: "Top 5"}}/>
-        <Tab.Screen name="aboutUsStack" component={AboutUsStack} options={{title: "About us"}}/>
+        <Tab.Screen name="homeStack" component={HomeStack} options={{title: "Home"}} storage={storage}/>
+        <Tab.Screen name="searchStack" component={SearchCityStack} options={{title: "Search City"}} storage={storage}/>
+        <Tab.Screen name="top-citiesStack" component={FavouriteCitiesStack} options={{title: "Top 5"}} storage={storage}/>
+        <Tab.Screen name="aboutUsStack" component={AboutUsStack} options={{title: "About us"}} storage={storage}/>
       </Tab.Navigator>
     </NavigationContainer>
   )
