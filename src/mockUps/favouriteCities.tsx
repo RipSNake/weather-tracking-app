@@ -3,13 +3,13 @@ interface City {
 	temperature: number,
 }
 
-export const favCities:City[] = [
+export const favouriteCities:City[] = [
   {
-    name: 'Outrageous City',
+    name: 'Mexico City, The Federal District, Mexico',
     temperature: 32
   },
   {
-    name: 'Angel City',
+    name: 'Aeronautica Militar, The Federal District, Mexico',
     temperature: 67
   },
   {
@@ -26,4 +26,4 @@ export const favCities:City[] = [
   },
 ]
 
-export default favCities;
+export default favouriteCities;

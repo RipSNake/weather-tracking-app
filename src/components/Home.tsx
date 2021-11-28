@@ -2,8 +2,9 @@ import React from "react";
 import { Image, View, Text, StyleSheet } from "react-native";
 
 export default function Home() {
+
     return (
-        <View>
+        <View style={styles.homeContainer}>
             <Text style={styles.headerTitle}>Weather Tracking</Text>
             <Image 
               source={{uri: "https://reactnative.dev/docs/assets/p_cat1.png"}}
@@ -24,5 +25,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 20,
         bottom: 40,
+    },
+    homeContainer: {
+      color: "orange",
+      //backgroundColor: "green",
+      paddingHorizontal: 15, 
+      paddingVertical: 5
     }
 })
