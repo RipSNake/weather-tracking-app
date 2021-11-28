@@ -79,7 +79,7 @@ export default function FavouriteCities(props: Props) {
           renderItem={({item}):JSX.Element => {return(
             <View key={item.name} style={styles.cityRow}>
               <Text
-                onPress={() => props.navigation.navigate("cityDetail")}
+                onPress={() => props.navigation.navigate("cityDetail",{city: item.name})}
               >{item.name}</Text>
               <Text>{item.temperature}</Text>
               <Button 

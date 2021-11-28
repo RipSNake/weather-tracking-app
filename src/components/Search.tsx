@@ -7,7 +7,7 @@ import InfoModal from './infoModal'
 export default function Search() {
     const apiKeyBis = '8a660995fc9545cd9d9223825210511';
     const [ciudad, setCiudad] = useState('');
-    const[infoCity, setInfoCity]= useState({icono: "", temperatura: Number, sensacion: Number, humedad: Number, viento: Number });
+    const [infoCity, setInfoCity]= useState({icono: "", temperatura: Number, sensacion: Number, humedad: Number, viento: Number });
     const [searchCity, setSearchCity] = useState([]);
     const [modal, setModal]:any = useState(null);
 

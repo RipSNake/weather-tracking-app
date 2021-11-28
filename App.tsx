@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, BackHandler, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import Navigation from './src/navigations/Navigations';
 import storage from './src/storage/storage';

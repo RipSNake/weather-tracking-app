@@ -5,11 +5,11 @@ interface City {
 
 export const favouriteCities:City[] = [
   {
-    name: 'Outrageous City',
+    name: 'Mexico City, The Federal District, Mexico',
     temperature: 32
   },
   {
-    name: 'Angel City',
+    name: 'Aeronautica Militar, The Federal District, Mexico',
     temperature: 67
   },
   {
