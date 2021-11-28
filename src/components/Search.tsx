@@ -25,7 +25,6 @@ export default function Search() {
         fetch(`${baseURL}/search.json?key=8a660995fc9545cd9d9223825210511&q=${text}`)
         .then(item =>item.json())
         .then(datos =>{
-            //console.log(datos)
             setSearchCity(datos);
         })
   }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements';
+import Icon from '@mdi/react';
+import { mdiTrashCan, mdiPlusCircle  } from '@mdi/js'; 
 import { useSelector } from 'react-redux';
 import CustomModal from './CustomModal';
 
@@ -60,7 +61,7 @@ export default function FavouriteCities(props: Props) {
         <TextInput
             autoCompleteType={'name'}
             style={styles.filter}
-            onChangeText={(text) => console.log('changed input value' + text)}
+            onChangeText={filterList}
             placeholder="City name"
           />
       </View>
@@ -73,19 +74,19 @@ export default function FavouriteCities(props: Props) {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => (index.toString())}
           data={filtered}
-         
           renderItem={({item}):JSX.Element => {return(
             <View key={item.name} style={styles.cityRow}>
               <Text
+                style={styles.cityName}
                 onPress={() => props.navigation.navigate("cityDetail",{city: item.name, isFavourite: true})}
               >{item.name}</Text>
-              <Text>{item.temperature}</Text>
-              <Button 
+              <TouchableOpacity 
                 onPress={() => {
                   removeCity(item.name)
                 }}
-                title={"Forget"}
-              />
+              >
+                <Icon path={mdiTrashCan} size={1} color="" />
+              </TouchableOpacity>
             </View>)}}
         />
         {modal}
@@ -94,7 +95,7 @@ export default function FavouriteCities(props: Props) {
     style={styles.addBtn}
     onPress={() => props.navigation.navigate('addCity')}
     >
-      <Icon type="material-community" name="plus-circle-outline" color="" />
+      <Icon path={mdiPlusCircle} size={1} color="" />
     </TouchableOpacity>
     </>
 	)
@@ -126,5 +127,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginVertical: 5,
     padding: 10
+  },
+  cityName: {
+    // align item to the right
   }
 })
