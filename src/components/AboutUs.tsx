@@ -22,8 +22,8 @@ export default function AboutUs() {
   }, [members])
 
   return (
-    <View>
-      <Text style={styles.headerTitle}>About Us</Text>
+    <View style={{paddingHorizontal: 15, paddingVertical: 5}}>
+      
       <Text style={styles.memberName}>{members[1].name}</Text>
             <Text style={styles.memberInfo}>{members[1].information}</Text>
       { members.length > 0 ?
