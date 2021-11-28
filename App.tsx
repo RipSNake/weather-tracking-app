@@ -1,10 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import Navigation from './src/navigations/Navigations';
 import storage from './src/storage/storage';
 import { store } from './store/store';
+
 
 export default function App() {
   const [localStorage, setLocalStorage] = useState(storage)
@@ -30,7 +30,7 @@ export default function App() {
 
     return () => backHandler.remove();
   }, []);
-  
+ 
   return (
       <Provider store={store}>
         <Navigation storage={localStorage}/>
