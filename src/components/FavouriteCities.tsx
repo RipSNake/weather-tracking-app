@@ -1,8 +1,7 @@
-import React, { ReactComponentElement, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import mockedCities from '../mockUps/favouriteCities';
 import CustomModal from './CustomModal';
 
 interface City {
@@ -70,7 +69,6 @@ export default function FavouriteCities(props: Props) {
       >
         
         <FlatList
-          //horizontal={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => (index.toString())}
@@ -79,7 +77,7 @@ export default function FavouriteCities(props: Props) {
           renderItem={({item}):JSX.Element => {return(
             <View key={item.name} style={styles.cityRow}>
               <Text
-                onPress={() => props.navigation.navigate("cityDetail",{city: item.name})}
+                onPress={() => props.navigation.navigate("cityDetail",{city: item.name, isFavourite: true})}
               >{item.name}</Text>
               <Text>{item.temperature}</Text>
               <Button 
@@ -92,9 +90,9 @@ export default function FavouriteCities(props: Props) {
         />
         {modal}
 			</ScrollView>
-      <TouchableOpacity 
-      style={styles.addBtn}
-      onPress={() => props.navigation.navigate('addCity')}
+    <TouchableOpacity 
+    style={styles.addBtn}
+    onPress={() => props.navigation.navigate('addCity')}
     >
       <Icon type="material-community" name="plus-circle-outline" color="" />
     </TouchableOpacity>

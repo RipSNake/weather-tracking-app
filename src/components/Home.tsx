@@ -1,7 +1,8 @@
 import React from "react";
 import { Image, View, Text, StyleSheet } from "react-native";
+import Navigation from "../navigations/Navigations";
 
-export default function Home() {
+export default function Home(props) {
 
     return (
         <View style={styles.homeContainer}>
@@ -12,6 +13,7 @@ export default function Home() {
             />
             <Text>Hi I am Neru, and I am here to help find, select and save your favorite cities's 
                 weather forecasts so you don't miss any important climate change</Text>
+            <Text>Let's go find your first city ! <Text onPress={() => props.navigation.navigate('search')}></Text></Text>
         </View>
     )
 }

@@ -29,12 +29,12 @@ export default function Search() {
             setSearchCity(datos);
         })
   }
-  const getInfoCity = (lugar)=>{
+  const getInfoCity = (city: string)=>{
     console.log("getInfo")
-    fetch(`${baseURL}/current.json?key=8a660995fc9545cd9d9223825210511&q=${lugar}`)
+    fetch(`${baseURL}/current.json?key=8a660995fc9545cd9d9223825210511&q=${city}`)
         .then(item =>item.json())
         .then(datos =>{
-            setCiudad(lugar);
+            setCiudad(city);
             const {condition, feelslike_c, humidity, temp_c, wind_kph, location} = datos.current;
             const {icon} = condition;
             setInfoCity({icono:`https:${icon}`, temperatura: temp_c, sensacion: feelslike_c, humedad: humidity, viento: wind_kph });
