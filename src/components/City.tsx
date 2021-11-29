@@ -12,6 +12,12 @@ interface Props {
   isFavourite: Boolean;
 }
 
+interface State {
+  city: string,
+  infoCity: CityLocation,
+  isFavourite: Boolean
+}
+
 interface CityLocation {
   name: string,
   region: string,
@@ -50,10 +56,11 @@ export default function City(props: Props) {
   return (
     <ScrollView contentContainerStyle={styles.centeredView}>
         
-        <Text style={styles.modalText}>{city}</Text>
+        <Text style={styles.cityName}>{infoCity.cityLocation.name}</Text>
 
-        <Text style={styles.modalText}>{}</Text>
-        <View style={{flexDirection: 'row', marginHorizontal: "auto", width: "80%", marginBottom: 15}}>
+        <Text style={styles.cityLocation}>{infoCity.cityLocation.region}, {infoCity.cityLocation.country}</Text>
+        
+        <View style={{flexDirection: 'row', marginHorizontal: "auto", width: "80%", marginBottom: 15, borderColor: "red"}}>
 
         <View style={styles.currentClimate}>
           <Image source={{uri: infoCity.icono}} width={100} style={styles.tinyLogo} />
@@ -111,8 +118,6 @@ export default function City(props: Props) {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    //justifyContent: "center",
-    //alignItems: "center",
     padding: 15
   },
   tinyLogo: {
@@ -162,7 +167,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center"
   },
-  modalText: {
+  cityName: {
+    fontSize: 20,
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  cityLocation: {
     marginBottom: 15,
     textAlign: "center"
   },
@@ -172,7 +182,8 @@ const styles = StyleSheet.create({
     maxHeight: 300,
     marginHorizontal: "auto",
     marginBottom: 15,
-    borderColor: "#bebebe"
+    borderColor: "#bebebe",
+    flex: 1
   },
   statTile: {
     marginBottom: 15,

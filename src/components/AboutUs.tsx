@@ -22,20 +22,18 @@ export default function AboutUs() {
   }, [members])
 
   return (
-    <View style={{paddingHorizontal: 15, paddingVertical: 5}}>
+    <ScrollView style={{paddingHorizontal: 15, paddingVertical: 5}}>
       
-      <Text style={styles.memberName}>{members[1].name}</Text>
-            <Text style={styles.memberInfo}>{members[1].information}</Text>
       { members.length > 0 ?
         members.map((member: Member) => (
-          <View key={member.name}>
+          <View key={member.name} style={styles.memberCard}>
             <Text style={styles.memberName}>{member.name}</Text>
             <Text style={styles.memberInfo}>{member.information}</Text>
           </View>
           ))
           : <Loader/>
       }
-    </View>
+    </ScrollView>
   )
     
 }
@@ -47,10 +45,15 @@ const styles = StyleSheet.create({
 		},
 		memberName: {
       fontWeight: 'bold',
-      color: 'orange'
+      color: 'orange',
+      marginBottom: 5
 		},
 		memberInfo: {
-      backgroundColor: '#aaa',
+      backgroundColor: '#72edf8',
       borderRadius: 10,
-		}
+      padding: 10,
+		},
+    memberCard: {
+      marginVertical: 15,
+    }
 })

@@ -81,6 +81,7 @@ export default function FavouriteCities(props: Props) {
                 onPress={() => props.navigation.navigate("cityDetail",{city: item.name, isFavourite: true})}
               >{item.name}</Text>
               <TouchableOpacity 
+                style={{alignContent: 'flex-end', alignItems: 'flex-end'}}
                 onPress={() => {
                   removeCity(item.name)
                 }}
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ad9963"
   },
   addBtn: {
-    backgroundColor: 'gold',
+    backgroundColor: '#72edf8',
     borderRadius: 50,
     margin: 10,
     padding: 15,
@@ -123,12 +124,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   cityRow: {
-    borderColor: 'blue',
+    borderColor: '#ded',
     borderWidth: 2,
     marginVertical: 5,
     padding: 10
   },
   cityName: {
     // align item to the right
+  },
+  delete: {
+    color: "red",
   }
 })

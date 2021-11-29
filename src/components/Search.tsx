@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View,Modal,Image, Text,  StyleSheet, ScrollView,FlatList, TouchableWithoutFeedback, Keyboard,TouchableHighlight, Alert, _Image} from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, _Image} from 'react-native'
 import{TextInput, Button, Card} from 'react-native-paper'
 import{baseURL,apiKey} from '../API/client'
 import InfoModal from './infoModal'
 
-export default function Search() {
+export default function Search(props) {
     const apiKeyBis = '8a660995fc9545cd9d9223825210511';
     const [ciudad, setCiudad] = useState('');
     const [infoCity, setInfoCity]= useState({icono: "", temperatura: Number, sensacion: Number, humedad: Number, viento: Number });
@@ -57,10 +57,10 @@ export default function Search() {
   
   return (
             <View style={styles.app}>
-                <Text style={styles.searchLabel}>Write the city's name</Text>
+                
                 <TextInput
                     style={styles.searchInput}
-                    label="Nombre de la ciudad"
+                    label="City's Name"
                     value={ciudad}
                     onChangeText={(text)=> getLista(text)}
 
@@ -68,9 +68,9 @@ export default function Search() {
                 <Button
                   icon="content-save"
                   mode="contained"
-                  theme={{colors:{primary:"#00aaff"}}}
-                  onPress={()=>{displayModal()}}
-                  > Mostrar Información
+                  theme={{colors:{primary:"#72edf8"}}}
+                  onPress={()=> {if(ciudad.length > 10) props.navigation.navigate('cityDetail', {city: ciudad, isFavourite: false})}}
+                  > Search
                 </Button>
 
                 <FlatList
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     },
     app:{
         flex:1,
-        backgroundColor: 'rgb(71,149,212)',
+        backgroundColor: '#f2f2f2',
         justifyContent:'center'
         
     },
