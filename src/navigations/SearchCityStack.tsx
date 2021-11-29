@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Search from '../components/Search'
 import CitiesList from '../components/CitiesList';
 import storage from '../storage/storage';
+import City from '../components/City';
 
 const Stack = createStackNavigator();
 
@@ -16,13 +17,11 @@ export default function SearchCityStack(props: { storage: any; }) {
         name="search"
         component={Search}
         options={{title: 'Search Cities'}}
-        storage={storage}
       />
       <Stack.Screen
-        name="citiesList"
-        component={CitiesList}
-        options={{title: 'Cities List'}}
-        storage={storage}
+        name="cityDetail"
+        component={City}
+        options={{title: 'City\'s Details'}}
       />
     </Stack.Navigator>
   )

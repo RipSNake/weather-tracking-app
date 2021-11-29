@@ -1,8 +1,8 @@
-import React, { ReactComponentElement, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements';
+import Icon from '@mdi/react';
+import { mdiTrashCan, mdiPlusCircle  } from '@mdi/js'; 
 import { useSelector } from 'react-redux';
-import mockedCities from '../mockUps/favouriteCities';
 import CustomModal from './CustomModal';
 
 interface City {
@@ -61,7 +61,7 @@ export default function FavouriteCities(props: Props) {
         <TextInput
             autoCompleteType={'name'}
             style={styles.filter}
-            onChangeText={(text) => console.log('changed input value' + text)}
+            onChangeText={filterList}
             placeholder="City name"
           />
       </View>
@@ -70,33 +70,33 @@ export default function FavouriteCities(props: Props) {
       >
         
         <FlatList
-          //horizontal={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => (index.toString())}
           data={filtered}
-         
           renderItem={({item}):JSX.Element => {return(
             <View key={item.name} style={styles.cityRow}>
               <Text
-                onPress={() => props.navigation.navigate("cityDetail",{city: item.name})}
+                style={styles.cityName}
+                onPress={() => props.navigation.navigate("cityDetail",{city: item.name, isFavourite: true})}
               >{item.name}</Text>
-              <Text>{item.temperature}</Text>
-              <Button 
+              <TouchableOpacity 
+                style={{alignContent: 'flex-end', alignItems: 'flex-end'}}
                 onPress={() => {
                   removeCity(item.name)
                 }}
-                title={"Forget"}
-              />
+              >
+                <Icon path={mdiTrashCan} size={1} color="" />
+              </TouchableOpacity>
             </View>)}}
         />
         {modal}
 			</ScrollView>
-      <TouchableOpacity 
-      style={styles.addBtn}
-      onPress={() => props.navigation.navigate('addCity')}
+    <TouchableOpacity 
+    style={styles.addBtn}
+    onPress={() => props.navigation.navigate('addCity')}
     >
-      <Icon type="material-community" name="plus-circle-outline" color="" />
+      <Icon path={mdiPlusCircle} size={1} color="" />
     </TouchableOpacity>
     </>
 	)
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ad9963"
   },
   addBtn: {
-    backgroundColor: 'gold',
+    backgroundColor: '#72edf8',
     borderRadius: 50,
     margin: 10,
     padding: 15,
@@ -124,9 +124,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   cityRow: {
-    borderColor: 'blue',
+    borderColor: '#ded',
     borderWidth: 2,
     marginVertical: 5,
     padding: 10
+  },
+  cityName: {
+    // align item to the right
+  },
+  delete: {
+    color: "red",
   }
 })
