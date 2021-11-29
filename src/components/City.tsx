@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Pressable, Route, StyleSheet, Text, View, Image } from 'react-native';
+import * as React from 'react';
+import { Pressable, Route, StyleSheet, Text, View, Image, Dimensions, ScrollView } from 'react-native';
+import MapView from 'react-native-maps';
 import { baseURL } from '../API/client';
-import { mdiThermometer, mdiSunThermometerOutline, mdiWaterPercent, mdiWeatherWindy } from '@mdi/js'; 
+import { mdiThermometer, mdiSunThermometerOutline, mdiWaterPercent, mdiWeatherWindy, mdiSafetyGoggles } from '@mdi/js'; 
 import Icon  from '@mdi/react';
+import { useState, useEffect } from 'react';
 
 interface Props {
   navigation: Navigator;
@@ -10,22 +12,31 @@ interface Props {
   isFavourite: Boolean;
 }
 
+interface CityLocation {
+  name: string,
+  region: string,
+  country: string,
+  lat: number,
+  lon: number,
+  tz_id: string,
+  localtime_epoch: number,
+  localtime: string //"2021-11-28 23:42"
+}
+
 export default function City(props: Props) {
   const [city, setCity] = useState(props.route.params.city);
-  const [infoCity, setInfoCity]= useState({icono: "", temperatura: Number, sensacion: Number, humedad: Number, viento: Number, location });
+  const [infoCity, setInfoCity]= useState({icono: "", temperatura: 0, sensacion: 0, humedad: 0, viento: 0, cityLocation: {} });
   const [isFavourite, setIsFavourite] = useState(props.route.params.isFavourite);
 
   const getInfoCity = (city: string)=>{
-    console.log("getInfo")
     fetch(`${baseURL}/current.json?key=8a660995fc9545cd9d9223825210511&q=${city}`)
         .then(item =>item.json())
         .then(datos =>{
-            console.log('Fetch Data ' + datos);
-            const {condition, feelslike_c, humidity, temp_c, wind_kph, location} = datos.current;
-            const {icon} = condition;
-            setInfoCity({icono:`https:${icon}`, temperatura: temp_c, sensacion: feelslike_c, humedad: humidity, viento: wind_kph, location });
-            console.log("temperatura ICONO ", infoCity.icono)
-            console.log("LOCAIONT :" + location);
+            const { condition, feelslike_c, humidity, temp_c, wind_kph } = datos.current;
+            const { location } = datos;
+            const { icon } = condition;
+            setInfoCity({icono:`https:${icon}`, temperatura: temp_c, sensacion: feelslike_c, humedad: humidity, viento: wind_kph, cityLocation: location });
+            console.log('Location ' + location.lat + " long " + location.lon)
         })
   }
 
@@ -37,31 +48,48 @@ export default function City(props: Props) {
   }, [city])
 
   return (
-    <View style={styles.centeredView}>
+    <ScrollView contentContainerStyle={styles.centeredView}>
         
         <Text style={styles.modalText}>{city}</Text>
+
         <Text style={styles.modalText}>{}</Text>
-        <Image source={{uri: infoCity.icono}} style={styles.tinyLogo} />
-        
-        <Text style={styles.modalText}>
-          <Icon path={mdiThermometer} size={1} color={'orange'} /> 
-          {infoCity.temperatura}
-        </Text>
-        <Text style={styles.modalText}>
-          <Icon path={mdiSunThermometerOutline} size={1} color={'orange'} />
-          {infoCity.sensacion}
-        </Text>
-        <Text style={styles.modalText}>
-          <Icon path={mdiWaterPercent} size={1} color={'orange'} />
-          {infoCity.humedad}
-        </Text>
-        <Text style={styles.modalText}>
-          <Icon path={mdiWeatherWindy} size={1} color={'orange'} />
-          {infoCity.viento}
-        </Text>
-        <Text style={styles.modalText}>
-          Location MAP
-        </Text>
+        <View style={{flexDirection: 'row', marginHorizontal: "auto", width: "80%", marginBottom: 15}}>
+
+        <View style={styles.currentClimate}>
+          <Image source={{uri: infoCity.icono}} width={100} style={styles.tinyLogo} />
+        </View>
+        <View style={styles.statsWrapper}>
+        <View style={styles.statsPair}>
+          <Text style={styles.statTile}>
+            <Icon path={mdiThermometer} size={1} color={'orange'} /> 
+            {infoCity.temperatura}
+          </Text>
+          <Text style={styles.statTile}>
+            <Icon path={mdiSunThermometerOutline} size={1} color={'orange'} />
+            {infoCity.sensacion}
+          </Text>
+        </View>
+        <View style={styles.statsPair}>
+          <Text style={styles.statTile}>
+            <Icon path={mdiWaterPercent} size={1} color={'orange'} />
+            {infoCity.humedad}
+          </Text>
+          <Text style={styles.statTile}>
+            <Icon path={mdiWeatherWindy} size={1} color={'orange'} />
+            {infoCity.viento}
+          </Text>
+        </View>
+        </View>
+        </View>
+        <MapView 
+          style={styles.map} 
+          showsMyLocationButton={false}
+          region={{
+            latitude: infoCity.cityLocation.lat, 
+            longitude: infoCity.cityLocation.lon,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421}}
+        />
         { isFavourite ? (<Pressable
           style={[styles.cancelBtn, styles.buttonClose]}
           onPress={() => console.log("DELETE")}
@@ -76,22 +104,21 @@ export default function City(props: Props) {
           <Text style={styles.btnText}>ADD</Text>
         </Pressable>)}
    
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    //justifyContent: "center",
+    //alignItems: "center",
+    padding: 15
   },
   tinyLogo: {
-    width: 80,
-    height: 80,
     flex: 1,
-    alignContent: "center"
+    alignContent: "center",
+    justifyContent: "center"
   },
   modalView: {
     margin: 20,
@@ -112,13 +139,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'orange',
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
+    width: "50%",
+    margin: "auto"
   },
   cancelBtn: {
     backgroundColor: 'darkgrey',
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
+    width: "50%",
+    margin: "auto"
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -134,5 +165,29 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center"
+  },
+  map: {
+    width: Dimensions.get('window').width * 0.8,
+    height: Dimensions.get('window').height * 0.8,
+    maxHeight: 300,
+    marginHorizontal: "auto",
+    marginBottom: 15,
+    borderColor: "#bebebe"
+  },
+  statTile: {
+    marginBottom: 15,
+    textAlign: "center",
+    width: "25%",
+  },
+  currentClimate: {
+    width: "50%",
+  },
+  statsPair: {
+    flexDirection: 'row',
+    alignContent: "center",
+    justifyContent: "space-evenly"
+  },
+  statsWrapper: {
+    flex: 1
   }
 })
