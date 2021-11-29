@@ -1,15 +1,15 @@
 export const members = [
   {
     name: 'Sebastian',
-    information: 'En el final de los tiempos no hubo ninguna otra persona que se mantuviera firme para lograr arremeter contra las hordas infernales. Soy una orgullosa guerrera capaz de destruir cualquier profecia', 
+    information: 'Me gustan mucho el arte en vivo (recitales / exposiciones) y aprender nuevas habilidades para ampliar mis conocimientos y poder realizar mas actividades, una de ellas la Programacion y el desarrollo de Apps.', 
   },
   {
     name: 'Nahuel',
-    information: 'Los sistemas complejos de tejidos y entrelazados de telas son unas de las terminaciones textiles que mas me gustan y que utilizo mayormente para realizar mis trabajos', 
+    information: 'Ya estoy por completar la Tecnicatura en Programacion (me falta solo un final!! ya casi ya casi ), me encantan los desafios y poder superarme a diario colaborando en equipo. Actualmente estoy trabajando como Desarrollador .NET', 
   },
   {
     name: 'Laura',
-    information: 'La sanacion atraves de la conciencia de nuestro ser y la limpieza de todo mal en nuestra esencia es parte de nuestro trabajo diario', 
+    information: 'Soy una mujer polifuncional, divido mis dias entre mi trabajo de oficina y la carrera de Tecnica en Programacion. Ademas de seguir capacitandome en nuevas tecnologias (como por ejemplo React-Native <3)', 
   },
 ]
 

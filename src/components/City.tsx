@@ -5,6 +5,9 @@ import { baseURL } from '../API/client';
 import { mdiThermometer, mdiSunThermometerOutline, mdiWaterPercent, mdiWeatherWindy, mdiSafetyGoggles } from '@mdi/js'; 
 import Icon  from '@mdi/react';
 import { useState, useEffect } from 'react';
+import storage from '../storage/storage';
+import { useDispatch } from 'react-redux';
+import { addCity, removeCity } from '../../store/slices/citiesSlice';
 
 interface Props {
   navigation: Navigator;
@@ -33,6 +36,7 @@ export default function City(props: Props) {
   const [city, setCity] = useState(props.route.params.city);
   const [infoCity, setInfoCity]= useState({icono: "", temperatura: 0, sensacion: 0, humedad: 0, viento: 0, cityLocation: {} });
   const [isFavourite, setIsFavourite] = useState(props.route.params.isFavourite);
+  const dispatch = useDispatch();
 
   const getInfoCity = (city: string)=>{
     fetch(`${baseURL}/current.json?key=8a660995fc9545cd9d9223825210511&q=${city}`)
@@ -99,14 +103,14 @@ export default function City(props: Props) {
         />
         { isFavourite ? (<Pressable
           style={[styles.cancelBtn, styles.buttonClose]}
-          onPress={() => console.log("DELETE")}
+          onPress={() => dispatch(removeCity(city))}
         >
           <Text style={styles.btnText}>DELETE</Text>
         </Pressable>)
         :
         (<Pressable
           style={[styles.acceptBtn, styles.buttonOpen]}
-          onPress={() => console.log("ADD")}
+          onPress={() => dispatch(addCity(city))}
         >
           <Text style={styles.btnText}>ADD</Text>
         </Pressable>)}
@@ -141,7 +145,7 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   acceptBtn: {
-    backgroundColor: 'orange',
+    backgroundColor: '72edf8',
     borderRadius: 20,
     padding: 10,
     elevation: 2,
