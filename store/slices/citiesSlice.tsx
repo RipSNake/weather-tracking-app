@@ -11,22 +11,27 @@ interface City {
   On the first call of the App we look for the localStorage if there's some 
   city favourite's saved.
 */
-const citiesSlice = createSlice({
+const citiesSlice: any = createSlice({
   name: "cities",
   initialState: {
-    data: mockedCities,
+    data: [], // mockedCities
     status: "idle",
   },
   reducers: {
+    getSavedCities(state, action) {
+      storage.load({key: 'favCities'}).then(data => state.data = data)
+    },
     addCity(state, action: PayloadAction<string>) {
       state.data = state.data.push(action.payload);
+      storage.save({key: 'favCities', data: state.data})
     },
     removeCity(state, action: PayloadAction<string>) {
-      state.data = state.data.filter(city => city.id === action.payload)
+      state.data = state.data.filter(city => city.id === action.payload);
+      storage.remove({key: action.payload})
     }
   }
 })
 
-export const { addCity, removeCity } = citiesSlice.actions;
+export const { addCity, removeCity, getSavedCities } = citiesSlice.actions;
 
 export default citiesSlice.reducer;

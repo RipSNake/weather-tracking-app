@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Button, Text, TextInput, View, ScrollView, StyleSheet, FlatList, ListRenderItem, TouchableOpacity } from 'react-native'
 import Icon from '@mdi/react';
 import { mdiTrashCan, mdiPlusCircle  } from '@mdi/js'; 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomModal from './CustomModal';
+import { getSavedCities } from '../../store/slices/citiesSlice';
 
 interface City {
 	name: string,
@@ -22,6 +23,7 @@ export default function FavouriteCities(props: Props) {
   const [modal, setModal]:any = useState(null);
 
   const favCities = useSelector(state => state.cities.data)
+  const dispatch = useDispatch();
 
   const removeCity = (text: string) => {
     setModal(
@@ -47,7 +49,7 @@ export default function FavouriteCities(props: Props) {
   let filtered:City[] = filterList();
   // first render
   useEffect(() => {
-    console.log('First render');
+    dispatch(getSavedCities());
     setCities(favCities);
   }, []);
 
@@ -81,7 +83,7 @@ export default function FavouriteCities(props: Props) {
                 onPress={() => props.navigation.navigate("cityDetail",{city: item.name, isFavourite: true})}
               >{item.name}</Text>
               <TouchableOpacity 
-                style={{alignContent: 'flex-end', alignItems: 'flex-end'}}
+                style={{alignContent: 'flex-end', alignItems: 'flex-end', }}
                 onPress={() => {
                   removeCity(item.name)
                 }}
